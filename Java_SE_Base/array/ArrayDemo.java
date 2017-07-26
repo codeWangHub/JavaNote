@@ -1,11 +1,32 @@
  
  import java.lang.reflect.*;
  import java.lang.annotation.*;
+ import java.util.Arrays;
+ 
  
  public class ArrayDemo {
 	 public static void main(String[] args) {
 		 
-			int[] a1 = {1,2,3,4,5};   // 长度为 5
+		test5();
+	 }
+	 
+	 
+	 private static void test5() {
+		 int a[] = {1,2,3,4,5,6};
+		
+		 int b[] = {7,8,9};
+			
+		
+		
+		System.out.println(Arrays.copyOf(a,4).toString());
+		System.out.println(Arrays.copyOf(a,4,float[].class).toString());
+		
+		
+			
+	 }
+	 
+	 private static void test4() {
+		 	int[] a1 = {1,2,3,4,5};   // 长度为 5
 			int[] a2 = {2,3,4};       // 长度为 3
 			int[] a3 = {9,8,7,6,5,4,3}; //长度为 7
 
@@ -19,8 +40,7 @@
 			}	
 	 }
 	 
-	 
-	 private void test3() {
+	 private static  void test3() {
 		 	int[] a1 = {1,2,3,4,5};   // 长度为 5
 			int[] a2 = {2,3,4};       // 长度为 3
 			int[] a3 = {9,8,7,6,5,4,3}; //长度为 7
@@ -36,7 +56,7 @@
 		 
 	 }
 	 
-	 private void test2() 
+	 private static void test2() 
 	 {
 		 	 
 		int[][] a = new int[][]{{1,2,3},{4,5,6},{7,8,9}};	
@@ -49,7 +69,7 @@
 	 
 	 
 	 
-	 private void test1()
+	 private static void test1()
 	 {		 
 		 	int[] arr1 = {1,2,3};
 			int[] arr2 = {0,1,2,3,4};
@@ -96,3 +116,6 @@
  // 引用数据类型 ， 数组 ，类 接口，自定义的
  // [I@15db9742   --->
  // 类型@哈希码   
+ 
+ 
+ 
