@@ -96,6 +96,51 @@ Int Array's ClassLoader  is null
 - 数组的length属性就相当于我们创建类时编译器给我们创建的Class对象一样。
 - java.lang.reflect.Array这个反射类中getLength(Object array)方法也是用来获取一个数组的长度属性，是一个``静态的native方法``。这就说明数组类型是指令级的。
 
+### 4. 数组的创建和初始化
+
+java数组的初始化和创建分为静态初始化和动态初始化。
+
+- 声明数组    格式：DataType[<size>]   arrayName;
+
+  ```java
+  int[]  arr1;    // 声明一个int型数组，不分配空间，只是一个引用
+  int[5] arr2;    // 声明一个int型5元素的数组，不分配空间，只是一个引用
+  String[] args;  
+
+  int[] arr4 = new int[5];  // 声明并分陪5个int型元素的数组，初始化默认为0
+
+  int arr5[] = xxx;   // 这种格式也是可以的，但是不推荐使用。
+  ```
+
+
+- 这里有一点需要**注意**：例如上面的```int[5] arr2;``` 声明了一个int型的数组，它仅仅是一个数组的引用，只是在java栈中分配了arr2 用来指向一个数组，并没有分配任何堆空间。所以这个是用的arr2是不能使用的。```arr1 ，args``` 一样。
+
+- 数组的初始化
+
+  - 静态初始化
+
+    ```java
+    int[] arr1 = {1,2,3,4,5};
+    int[] arr2 = new int[]{1,2,3,4,5};    /* 和上面一样 */
+    int[] arr3 = new int[3];   /* 初始化为该类型<int>的默认值<0> */
+    ```
+
+  - 动态初始化
+
+    ```java
+    int[] arr1 = new int[10];
+
+    for(int i=0; i<arr1.length; ++i) {
+      	arr1[i] = i;
+    }
+    ```
+
+- 数字的内存模型
+
+  ![Java一维数组内存模型](G:\work\java\Java_SE_Base\array\Java一维数组内存模型.jpg)
+
+  ​
+
 
 
 
