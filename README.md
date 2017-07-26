@@ -9,7 +9,7 @@ Since 2017-7-25 in HEU by Codewang.
 
  - [数组](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/array/java%E6%95%B0%E7%BB%84.md)
  - Java常用类
-    - Object
+    - [Object](https://github.com/codeWangHub/JavaNote/blob/base/Java_SE_Base/commonClasses/Object/Object.md)
    - String
    - StringBuffer
    - Math
