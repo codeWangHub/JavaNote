@@ -7,9 +7,7 @@ Java把现实中的任何事物都当做一个对象(Object), Java是面向对�
 ```java
 public class Dog extends Object{
 }
-
 与
-
 public class Dog{
 }
 ```
@@ -49,6 +47,7 @@ public class Object {
   }
   
   /*  用于对象的复制，本地方法。
+   *  clone函数返回的是一个引用，指向的是新的clone出来的对象，此对象与原对象分别占用不同的堆空间。
    *  以前这个函数不是本地方法，需要实现Cloneable接口。覆写时
    *  还要改为public的权限。
    */
@@ -103,4 +102,29 @@ public class Object {
   protected void finalize() throws Throwable { }
 }
 ```
+
+### 覆写equals方法和hashCode方法
+
+在覆写equals方法时应该遵循以下几点：
+
+- 自反性：任何非空引用x ： x.equals(x)  应该返回true。
+- 对称性：任何非空引用x,y ：x.equals(y) 和 y.equals(x) 返回结果应该一致。 
+- 传递性：任意非空引用x,y ：x.equals(y)  <==> y.equals(z) <==> z.equals(x)。
+- 一致性：任意非空引用x,y ：x.equals(y),多次执行，结果应该一致。
+- 约定    ：任意非空引用x ：x.equals(null) ，应该返回false。
+- 覆写equals方法时，应该同时覆写hashCode方法，如果两个对象被equals()方法判断为相等，那么它们就应该拥有同样的hash code。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
