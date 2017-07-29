@@ -182,6 +182,10 @@ Constant pool:
 
 ***这块还是有问题，需要jvm的知识支撑，先mark*** ----> [String的常见问题](http://blog.csdn.net/gaopeng0071/article/details/11741027)
 
+**Java中，每一个字符串都是String类的一个匿名对象**
+
+
+
 ### 4. String 类的方法
 
 这里只探讨String这个类的方法。
@@ -206,6 +210,170 @@ Constant pool:
 
 
 #### 4.2 String类常用方法
+
+- ```char charAt(int index)```
+
+  返回index指定位置的字符。
+
+  ```java
+  		String str = "hello world.txt";
+  		
+  		sop("charAt(0) = " + str.charAt(0));
+  		sop("charAt(2) = " + str.charAt(2));
+  		sop("charAt(100) = " + str.charAt(100));
+  运行结果：
+  charAt(0) = h
+  charAt(2) = l
+  StringIndexOutOfBoundsException       
+  ```
+
+
+- ```int compareTo(String anotherString)```
+
+  实现的Comparable接口的方法，比较两个字符串的大小（默认字典序）
+
+  ```java
+  		String str1 = "abc";
+  		String str2 = "abd";
+  		String str3 = "abcd";
+  		
+  		sop("str1.compareTo(str2) = " + str1.compareTo(str2));
+  		sop("str1.compareTo(str3) = " + str1.compareTo(str3));
+  		sop("str2.compareTo(str3) = " + str2.compareTo(str3));
+  运行结果：
+  str1.compareTo(str2) = -1      -->  str1 < str2
+  str1.compareTo(str3) = -1      -->  str1 < str3    
+  str2.compareTo(str3) = 1       -->  str2 > str3 
+  ```
+
+- ```String concat(String str)```
+
+  把str连接到当前字符串后面，返回。
+
+  ```java
+  		String str1 = "hello";
+  		String str2 = "world";
+  		
+  		sop("str1.concat(str2) = " + str1.concat(str2));
+  注意：
+    “hello”和“world”在编译时就可以确定，是常量，因此存放在常量池。
+    str1.concat(str2) ，实质上是返回了一个新的String对象，其存放在堆中。
+  ```
+
+- ```boolean contains(CharSequence cs)```
+
+  判断当前字符串是否包含cs
+
+- ```boolean endWith(String suffix)```
+
+  是不是以suffix结尾。
+
+- ```boolean startWith(String suffix)```
+
+  是不是以suffix开始
+
+- ```boolean equals(Object onotherObject)```
+
+  比较两个字符串是否相等，字符比较不是对象比较。
+
+- ```byte[] getBytes()```
+
+  当前字符串的字符数组，默认字符集
+
+- ```int indexOf(char ch)```
+
+  返回第一个出现该字符位置的索引。没有返回-1
+
+  ```java
+  		String str = "aabbccdd";
+  		
+  		sop("str.indexOf('c') = " + str.indexOf('c'));
+  		sop("str.indexOf(\"bbc\") = "  + str.indexOf("bbc"));
+  运行结果：
+  str.indexOf('c') = 4     ---> 第一次出现的位置
+  str.indexOf("bbc") = 2  
+  ```
+
+- ```String intern()```
+
+  把这个字符串对象放入常量池
+
+  ```java
+  		String str1 = "abc";      /* 编译时可确认，常量池 */
+  		String str2 = new String("abc");  /* 不可确认，堆 */  
+  		
+  		sop("str1 == str2 --> " + (str1 == str2));  /* 不是同一个对象 */
+  	
+  		String str3 = new String("abc").intern(); /* 加入了常量池，可确认。常量池 */
+  		
+  		sop("str1 == str3 --> " + (str1 == str3));	/* 同一个对象 */ 
+
+  运行结果：
+  str1 == str2 --> false
+  str1 == str3 --> true
+  ```
+
+- ```boolean isEmpty()```
+
+  是否为空字符串，实质上是判断length
+
+- ```int length()```
+
+  返回该字符串的长度。
+
+- ```macthes(String regex)```
+
+  匹配，该字符串是不是和这个正则表达式匹配。[关于正则表达式->传送]
+
+- ```String replace(char oldChar,char newChar)```
+
+  替换所有的oldChar为newChar
+
+  ```java
+  	String str = "446042453@qq.com";
+  		
+  	sop("replace('4','s') --> " + str.replace('4' , 's'));
+  运行结果：
+    replace('4','s') --> ss60s2s53@qq.com
+  ```
+
+- ```String replaceAll(String regex,String replacement)```
+
+  把符合正则表达式的子串全部替换为reolacement
+
+- ```String[]  split(String regex)```
+
+  以正则表达式为分割线，分割该字符串
+
+- ```String substring(int begin,int end)```
+
+  获得子串，可以只有一个开始参数，不要结束参数表示取到末尾。
+
+  ```java
+  	String str = "0123456789";
+  		
+  	sop(str.substring(2,6));
+  	sop(str.substring(5));
+  运行结果：
+  2345          注意第二个参数是结束索引，不是指子串的长度。
+  56789
+  ```
+
+- ```char[] toCharArray()```
+
+  转换成字符数组
+
+- ```String toUpperCase()```
+
+  全部转换为大写
+
+- ```String toLowerCase()```
+
+  全部转为小写
+
+- ```String valueOf(T )```
+
+  其他类型转换为字符串。
 
 
 
