@@ -62,15 +62,6 @@ public class StringDemo {
 然后编译生成class文件，再使用```javap -v StringDemo.class``` 输出字节码信息：
 
 ```java
-G:\work\java\Java_SE_Base\commonClasses\String>javap -v StringDemo.class
-Classfile /G:/work/java/Java_SE_Base/commonClasses/String/StringDemo.class
-  Last modified 2017-7-29; size 388 bytes
-  MD5 checksum c1afbd378ae9140e2fa1cec9040a4ab3
-  Compiled from "StringDemo.java"
-public class StringDemo    
-  minor version: 0         
-  major version: 52
-  flags: ACC_PUBLIC, ACC_SUPER   /* 权限 */
 Constant pool:  /* 常量池 */
    #1 = Methodref          #7.#16         // java/lang/Object."<init>":()V
    #2 = String             #17            // abc
@@ -129,18 +120,65 @@ Constant pool:  /* 常量池 */
         26: aload_2
         27: astore        5
         29: return
-      LineNumberTable:
-        line 4: 0
-        line 5: 3
-        line 6: 13
-        line 7: 23
-        line 8: 26
-        line 10: 29
 }
 SourceFile: "StringDemo.java"
 ```
 
+我们可以看到常量池中有```abc```也有```def```这就表明了，使用```new String("xxx")```，这个```xxx```也在常量池中，那么内存模型就是：
 
+![String构造内存模型](https://raw.githubusercontent.com/codeWangHub/JavaNote/base/Java_SE_Base/commonClasses/String/String%E7%9A%84%E6%9E%84%E9%80%A0%E6%A8%A1%E5%9E%8B.png)
+
+总结：String类在new操作下，产生的对象在堆内存中，但是其value字符串依然是在常量池，这也就是java中提倡的字符串常量的唯一性！当构造时直接赋值字符串则这个对象直接存储在常量池。
+
+从上面的字节码信息也可以看出：
+
+- 直接赋值字符串，并没有调用String的构造函数，只是String类引用str1的一次赋值。
+
+- 使用new关键字，调用的是String的```(Ljava/lang/String;)V```,其源码如下：
+
+  ``````java
+      public String(String original) {
+          this.value = original.value;
+          this.hash = original.hash;
+      }
+  ``````
+
+  这也再次证明了我们上述的结论。是引用的拷贝，不是字符串的拷贝。
+
+### 3. 再探String的构造
+
+我们再做一个小实验来探讨String的构造：
+
+```java
+public class StringDemo {
+	public static void main(String[] args) {
+		String str1 = "123";
+		String str2 = "456";
+		
+		String str3 = "1" + "2";
+		String str4 = "1" + "23";
+		
+		String str5 = "1234";
+		String str6 = "123456";
+		String str7 = "111";
+	}
+}
+```
+
+其字节码为：
+
+```shell
+Constant pool:
+   #1 = Methodref          #9.#18         // java/lang/Object."<init>":()V
+   #2 = String             #19            // 123
+   #3 = String             #20            // 456
+   #4 = String             #21            // 12
+   #5 = String             #22            // 1234
+   #6 = String             #23            // 123456
+   #7 = String             #24            // 111
+```
+
+可以看到：```String str3 = "1" + "2"``` 并没有产生```1```,```2``` 这两个常量，而是直接产生了```12``` 。最后的str7是为了测试同样的字符会不会是产生```"1"+"1"+"1"```这种情况。
 
 
 
