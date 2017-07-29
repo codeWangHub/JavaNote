@@ -167,7 +167,7 @@ public class StringDemo {
 
 其字节码为：
 
-```shell
+```java
 Constant pool:
    #1 = Methodref          #9.#18         // java/lang/Object."<init>":()V
    #2 = String             #19            // 123
@@ -180,11 +180,32 @@ Constant pool:
 
 可以看到：```String str3 = "1" + "2"``` 并没有产生```1```,```2``` 这两个常量，而是直接产生了```12``` 。最后的str7是为了测试同样的字符会不会是产生```"1"+"1"+"1"```这种情况。
 
+***这块还是有问题，需要jvm的知识支撑，先mark*** ----> [String的常见问题](http://blog.csdn.net/gaopeng0071/article/details/11741027)
+
+### 4. String 类的方法
+
+这里只探讨String这个类的方法。
+
+#### 4.1 构造方法
+
+| 方法                                       | 描述                                      |
+| ---------------------------------------- | --------------------------------------- |
+| ```String()```                           | 默认构造放方法，源码：```this.value = "".value;``` |
+| ```String(byte[])```                     | 使用平台默认的字符集解析byte数组，构造字符串                |
+| ```String(byte[],CharSet charset)```     | 使用指定的字符集解析byte数组，生成字符串                  |
+| ```String(byte[],int offset,int length)``` | 略                                       |
+| ```String(byte[],int,int,Charset)```     | 略                                       |
+| ```String(byte[],int,int,String charsetName)``` | 略                                       |
+| ```String(byte[] bytes, String charsetName)``` | 略                                       |
+| ```String(char[] value)```系列             | 略                                       |
+| ```String(int[] codePoints, int offset, int count)``` | codePoint 是指unicode码                    |
+| ```String(String original)```            | 拷贝构造                                    |
+| ```String(StringBuffer buffer)```        | 使用StringBuffer来构造字符串                    |
+| ```String(StringBuilder builder)```      | 使用StringBuilder来构造字符串                   |
 
 
 
-
-
+#### 4.2 String类常用方法
 
 
 
