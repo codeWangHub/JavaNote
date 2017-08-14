@@ -11,7 +11,7 @@ Since 2017-7-25 in HEU by Codewang.
  - Java常用类
     - [Object](https://github.com/codeWangHub/JavaNote/blob/base/Java_SE_Base/commonClasses/Object/Object.md)
     - [String](https://github.com/codeWangHub/JavaNote/blob/base/Java_SE_Base/commonClasses/String/String.md)
-   - StringBuffer
+    - [StringBuffer](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/commonClasses/StringBuffer/java-StringBuffer.md)
    - Math
    - Date
 - Java异常
