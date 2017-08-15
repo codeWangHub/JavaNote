@@ -19,7 +19,6 @@ Since 2017-7-25 in HEU by Codewang.
 
     - [StringBuilder](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/commonClasses/StringBuilder/StringBuilder.md)
 
-      ​
    - Math
    - Date
 - Java异常
@@ -35,6 +34,7 @@ Since 2017-7-25 in HEU by Codewang.
 - Java IO
   - 字符流
   - 字节流
+- [Java JNI](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Advance/jni/java_jni.md)
 - Java JDBC
 - Java 多线程
 - Java 网络编程
