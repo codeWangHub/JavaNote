@@ -10,9 +10,16 @@ Since 2017-7-25 in HEU by Codewang.
  - [数组](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/array/java%E6%95%B0%E7%BB%84.md)
  - Java常用类
     - [Object](https://github.com/codeWangHub/JavaNote/blob/base/Java_SE_Base/commonClasses/Object/Object.md)
+
     - [学习String、StringBuffer、StringBuilder的基础](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/commonClasses/Base/String-StringBuffer%E7%9A%84%E5%9F%BA%E7%A1%80.md)
+
     - [String](https://github.com/codeWangHub/JavaNote/blob/base/Java_SE_Base/commonClasses/String/String.md)
+
     - [StringBuffer](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/commonClasses/StringBuffer/java-StringBuffer.md)
+
+    - [StringBuilder](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Base/commonClasses/StringBuilder/StringBuilder.md)
+
+      ​
    - Math
    - Date
 - Java异常
