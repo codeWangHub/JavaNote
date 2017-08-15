@@ -23,9 +23,14 @@ Since 2017-7-25 in HEU by Codewang.
    - Date
 - Java异常
 - Java反射
-- Java注解
 
 ## Java SE Advance
+
+- [Java JNI](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Advance/jni/java_jni.md)
+
+
+- [Java注解](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Advance/annotation/java%E6%B3%A8%E8%A7%A3.md)
+
 
 - Java 集合框架
   - List
@@ -34,7 +39,7 @@ Since 2017-7-25 in HEU by Codewang.
 - Java IO
   - 字符流
   - 字节流
-- [Java JNI](https://github.com/codeWangHub/JavaNote/blob/master/Java_SE_Advance/jni/java_jni.md)
+- ​
 - Java JDBC
 - Java 多线程
 - Java 网络编程
