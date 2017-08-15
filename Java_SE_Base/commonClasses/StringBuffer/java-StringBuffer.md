@@ -183,5 +183,31 @@ StringBuffer的初始化和String类似，只不过不能直接使用字符串(S
       }
   ```
 
+- ```StringBuffer replace(start,end,str)```
 
+  从start开始用str替换直到end
+
+  ```java
+   public AbstractStringBuilder replace(int start, int end, String str) {
+          if (start < 0)
+              throw new StringIndexOutOfBoundsException(start);
+          if (start > count)
+              throw new StringIndexOutOfBoundsException("start > length()");
+          if (start > end)
+              throw new StringIndexOutOfBoundsException("start > end");
+
+          if (end > count)    // 不能超过当前字符串的长度
+              end = count;
+          int len = str.length();
+          int newCount = count + len - (end - start);
+          ensureCapacityInternal(newCount);
+
+          System.arraycopy(value, end, value, start + len, count - end);
+          str.getChars(value, start);
+          count = newCount;
+          return this;
+      }
+  ```
+
+  ​
 
