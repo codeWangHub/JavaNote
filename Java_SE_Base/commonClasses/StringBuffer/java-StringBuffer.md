@@ -29,9 +29,11 @@ StringBuffer的初始化和String类似，只不过不能直接使用字符串(S
 
   ```String str = sb.toString();```
 
-### 3. StringBuffer 的常用方法
+## 3. StringBuffer 的常用方法
 
+### a . ```StringBuffer append (xxx)```
 
+将xxx添加到当前对象字符串的后边，参数可以是String，StringBuffer，基本数据类型等。
 
 
 
