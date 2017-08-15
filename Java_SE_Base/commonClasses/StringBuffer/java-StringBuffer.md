@@ -25,11 +25,65 @@ StringBuffer的初始化和String类似，只不过不能直接使用字符串(S
 
 - ```StringBuffer sb = new StringBuffer();```
 
+  ```java
+   public StringBuffer() {
+       super(16);
+   // 调用父类（AbstractStringBuilder）的构造函数：
+   //   AbstractStringBuilder(int capacity) {
+   //   	 value = new char[capacity];
+   //   }  
+   // 默认构造一个16个char大小的数组 
+   }
+
+  //类似的：
+  public StringBuffer(int capacity) {
+      super(capacity);
+  }
+  ```
+
   初始化一个内容为空的StringBuffer。
 
-- ```StringBuffer sb = new StringBuffer("abcdef");```
+- ```StringBuffer sb = new StringBuffer(String);```
 
-  初始化一个内容为```"abcdef"```的StringBuffer对象。
+  ```java
+   public StringBuffer(String str) {
+        super(str.length() + 16);
+        append(str);
+   }
+   /*  分析：
+       AbstractStringBuilder append(Object obj) {
+          return append(String.valueOf(obj));
+       }
+   	 --->
+   	 public AbstractStringBuilder append(String str) {
+          if (str == null)
+              return appendNull();
+          int len = str.length();
+          ensureCapacityInternal(count + len);
+          
+          // 所以实质上是把String的字符复制了一份 
+          str.getChars(0, len, value, count);
+          count += len;
+          return this;
+      }
+      --->
+      public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)
+      {
+          if (srcBegin < 0)
+              throw new StringIndexOutOfBoundsException(srcBegin);
+          if ((srcEnd < 0) || (srcEnd > count))
+              throw new StringIndexOutOfBoundsException(srcEnd);
+          if (srcBegin > srcEnd)
+              throw new StringIndexOutOfBoundsException("srcBegin > srcEnd");
+          // 数组的拷贝    
+          System.arraycopy(value, srcBegin, dst, dstBegin, srcEnd - srcBegin);
+      }
+   
+   */
+
+  ```
+
+  初始化一个内容为```"abcdef"```的StringBuffer对象，**拷贝** String对象的字符到新的StringBuffer。
 
 ## 2. StringBuffer 和 String 对象的相互转化
 
@@ -43,13 +97,91 @@ StringBuffer的初始化和String类似，只不过不能直接使用字符串(S
 
   ```String str = sb.toString();```
 
+  ```java
+      @Override
+      public synchronized String toString() {
+          if (toStringCache == null) {
+              toStringCache = Arrays.copyOfRange(value, 0, count);
+          }
+          return new String(toStringCache, true);
+          /* true 表示要拷贝 */
+      }
+  ```
+
 ## 3. StringBuffer 的常用方法
 
 - ```StringBuffer append (xxx)```
 
   将xxx添加到当前对象字符串的后边，参数可以是String，StringBuffer，基本数据类型等。
 
-  ​
+  这里要注意返回值还是一个StringBuffer所以可以连续调用次方法，例如：
+
+  ```java
+  StringBuffer sb = new StringBuffer();
+  sb.append("select * from ")
+    .append("user")
+    .append("where")
+    .append("...");
+  ```
+
+- ```StringBuffer delete(start,end)```
+
+  删除start到end之间的字符串。区间是**[start,end)**.
+
+  ```java
+  public synchronized StringBuffer delete(int start, int end) {
+       toStringCache = null;
+       // 不能直接调用delete，这样调用的就是本方法，造成无限递归
+       super.delete(start, end);
+       return this;
+  }
+
+  --->
+    
+  // 父类的delete  方法删除之后复制了一份，最终修改的还是本对象中集成父类的数组。
+   public AbstractStringBuilder delete(int start, int end) {
+          if (start < 0)
+              throw new StringIndexOutOfBoundsException(start);
+          if (end > count)
+              end = count;
+          if (start > end)
+              throw new StringIndexOutOfBoundsException();
+          int len = end - start;
+          if (len > 0) {
+              System.arraycopy(value, start+len, value, start, count-end);
+              count -= len;
+          }
+          return this;
+    }  
+  ```
+
+- ```deleteCahrAt(index)```
+
+  删除指定位置上的字符。
+
+- ```StringBuffer insert(offset,xxx)```
+
+  在指定位置插入xxx
+
+- ```StringBuffer reverse()```
+
+  字符反转
+
+- ```setCharAt(index,char)```
+
+  在指定位置插入新字符
+
+- ```void trimToSize()```
+
+  次方法将内部数组的大小调整到和当前存储的字符串大小一致，减少空间的浪费
+
+  ```java
+      public void trimToSize() {
+          if (count < value.length) {
+              value = Arrays.copyOf(value, count);
+          }
+      }
+  ```
 
 
 
